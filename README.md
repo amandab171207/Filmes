@@ -46,3 +46,7 @@ Use o botão **Pastas** para criar e remover pastas personalizadas. Abra os deta
 ## Limite do catálogo
 O app inclui um catálogo local de exemplos. Ele não reúne automaticamente todos os filmes, séries, animes e doramas de todos os serviços: esse catálogo muda por país e ao longo do tempo e requer integração com uma fonte de dados atualizada e configuração de servidor. Os atalhos de streaming servem para pesquisar o título nos serviços.
 
+
+## Páginas por tipo
+O catálogo tem páginas de Filmes, Séries, Animes, Doramas e Novelas, com paginação de resultados. As entradas de doramas e novelas são exemplos locais e podem não representar o catálogo completo ou a disponibilidade atual dos streamings.
+
