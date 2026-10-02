@@ -11,9 +11,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Filmes — seu catálogo</title>
   <link rel="preconnect" href="https://image.tmdb.org">
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=15">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="app.js?v=15" defer></script>
+  <script src="app.js?v=16" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -25,9 +25,10 @@
     <label class="search"><span class="sr-only">Buscar títulos</span><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar filmes e animes…" autocomplete="off"></label>
   </header>
   <main id="inicio">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy"><p class="eyebrow">SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</p><h1 id="hero-title">Encontre algo<br>incrível para <em>assistir.</em></h1><p class="hero-subtitle">Filmes e animes que merecem um lugar na sua lista.</p><a class="button button-primary" href="#catalogo">Explorar catálogo <span>↓</span></a></div>
-      <div class="hero-art" id="hero-feature" aria-label="Novidades e títulos em alta"><div class="hero-feature-backdrop" id="hero-feature-backdrop"></div><div class="hero-feature-content"><div class="hero-feature-tabs"><button type="button" class="active" data-feature-mode="new">Novidades</button><button type="button" data-feature-mode="trending">Em alta</button></div><span class="hero-feature-kicker" id="hero-feature-kicker">NOVIDADE</span><h2 id="hero-feature-title">Carregando destaques…</h2><p id="hero-feature-meta"></p><div class="hero-feature-actions"><button type="button" class="hero-feature-details" id="hero-feature-details">Ver detalhes ↗</button><div class="hero-feature-arrows"><button type="button" id="hero-feature-prev" aria-label="Título anterior">‹</button><button type="button" id="hero-feature-next" aria-label="Próximo título">›</button></div></div><span class="hero-feature-position" id="hero-feature-position"></span></div></div>
+    <section class="hero hero-showcase" id="inicio" aria-label="Novidades e títulos em alta">
+      <div class="hero-feature-backdrop" id="hero-feature-backdrop" aria-hidden="true"></div><div class="hero-full-shade" aria-hidden="true"></div>
+      <img class="hero-feature-poster" id="hero-feature-poster" src="" alt="Pôster do título em destaque">
+      <div class="hero-feature-content"><div class="hero-feature-tabs"><button type="button" class="active" data-feature-mode="new">Novidades</button><button type="button" data-feature-mode="trending">Em alta</button></div><span class="hero-feature-kicker" id="hero-feature-kicker">NOVIDADE</span><h1 id="hero-feature-title">Carregando destaques…</h1><p id="hero-feature-meta"></p><div class="hero-feature-actions"><button type="button" class="hero-feature-details" id="hero-feature-details">Ver detalhes ↗</button><div class="hero-feature-arrows"><button type="button" id="hero-feature-prev" aria-label="Título anterior">‹</button><button type="button" id="hero-feature-next" aria-label="Próximo título">›</button></div></div></div><span class="hero-feature-position" id="hero-feature-position"></span>
     </section>
     <section class="recommender" id="assistente-ia" aria-label="Assistente de filmes e séries">
       <div class="ai-chat-shell">
