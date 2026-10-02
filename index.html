@@ -11,8 +11,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Filmes — seu catálogo</title>
   <link rel="preconnect" href="https://image.tmdb.org">
-  <link rel="stylesheet" href="style.css?v=9">
-  <script src="app.js?v=10" defer></script>
+  <link rel="stylesheet" href="style.css?v=10">
+  <script src="app.js?v=11" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -55,7 +55,8 @@
       </div>
     </section>
     <section class="catalog" id="catalogo">
-      <div class="section-heading"><div><p class="eyebrow" id="section-eyebrow">ESCOLHA SUA PRÓXIMA SESSÃO</p><h2 id="section-title">Explore o catálogo</h2></div><div class="catalog-actions"><button class="favorites-toggle" id="watched-toggle" aria-pressed="false">✓ <span>Minha biblioteca</span></button><button class="favorites-toggle" id="favorites-toggle" aria-pressed="false">▣ <span>Favoritos</span></button></div></div>
+      <div class="section-heading"><div><p class="eyebrow" id="section-eyebrow">ESCOLHA SUA PRÓXIMA SESSÃO</p><h2 id="section-title">Explore o catálogo</h2></div><div class="catalog-actions"><button class="favorites-toggle" id="watched-toggle" aria-pressed="false">✓ <span>Minha biblioteca</span></button><button class="favorites-toggle" id="favorites-toggle" aria-pressed="false">▣ <span>Favoritos</span></button><button class="favorites-toggle" id="manage-folders">▰ <span>Pastas</span></button></div></div>
+      <div class="folder-bar" id="folder-bar" aria-label="Pastas da biblioteca"></div>
       <div class="filters" id="filters" aria-label="Filtrar por categoria"></div>
       <p class="result-count" id="result-count" aria-live="polite"></p>
       <div class="movie-grid" id="movie-grid"></div>
@@ -64,6 +65,7 @@
   </main>
   <footer><a class="brand" href="#inicio"><span class="brand-mark">▶</span> filmes<span class="brand-dot">.</span></a><span>Seu próximo favorito está por aqui.</span><a href="#inicio">Voltar ao topo ↑</a></footer>
   <dialog id="details-modal" aria-labelledby="modal-title"><button class="modal-close" id="modal-close" aria-label="Fechar detalhes">×</button><div class="modal-content" id="modal-content"></div></dialog>
+  <dialog id="folders-modal" aria-labelledby="folders-title"><button class="modal-close" id="folders-close" aria-label="Fechar pastas">×</button><div class="streaming-manager"><p class="eyebrow">SUA ORGANIZAÇÃO</p><h2 id="folders-title">Pastas da biblioteca</h2><p class="streaming-manager-copy">Crie pastas como “Quero assistir”, “Favoritos da família” ou “Doramas”. Abra os detalhes de um título para adicioná-lo a uma ou mais pastas.</p><form id="folder-form" class="folder-form"><label class="sr-only" for="folder-name">Nome da pasta</label><input id="folder-name" maxlength="40" placeholder="Nome da nova pasta" required><button class="button button-primary" type="submit">Criar pasta</button></form><div id="folder-list" class="folder-list"></div></div></dialog>
   <dialog id="streaming-modal" aria-labelledby="streaming-modal-title"><button class="modal-close" id="streaming-close" aria-label="Fechar streamings">×</button><div class="streaming-manager"><p class="eyebrow">SEUS SERVIÇOS</p><h2 id="streaming-modal-title">Vincular streamings</h2><p class="streaming-manager-copy">Selecione os serviços que você usa para destacar atalhos de busca. A conexão de contas e assinaturas não está disponível neste app.</p><div id="streaming-manager-list" class="streaming-manager-list"></div></div></dialog>
   <dialog id="install-modal" aria-labelledby="install-title"><button class="modal-close" id="install-close" aria-label="Fechar instruções">×</button><div class="streaming-manager"><p class="eyebrow">FILMES NO SEU DISPOSITIVO</p><h2 id="install-title">Instale o app</h2><p class="streaming-manager-copy" id="install-instructions">No menu do navegador, escolha “Instalar app” ou “Adicionar à tela inicial”. O app precisa estar aberto por um endereço seguro (HTTPS) ou localhost.</p></div></dialog>
 </body>
