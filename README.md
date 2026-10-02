@@ -39,3 +39,10 @@ Para uma olhada rápida, também é possível abrir `index.html` diretamente, ma
 
 Imagens públicas e a fonte tipográfica são carregadas pela internet. As recomendações são calculadas no próprio navegador comparando categorias do catálogo e itens da biblioteca; não usam um modelo generativo nem enviam dados para um serviço externo. O botão “Vincular streamings” guarda localmente quais serviços você selecionou e oferece atalhos para abri-los; não conecta credenciais ou assinaturas. Os atalhos nos detalhes abrem a busca do título em cada serviço; eles não confirmam disponibilidade, que varia por país e pode mudar. Se uma imagem não carregar, o app mostra um pôster de reserva.
 
+
+## Pastas da biblioteca
+Use o botão **Pastas** para criar e remover pastas personalizadas. Abra os detalhes de qualquer título, marque uma ou mais pastas e salve. As pastas e associações ficam guardadas no armazenamento local do navegador deste dispositivo; para sincronizar entre dispositivos seria necessário um serviço com conta e armazenamento online.
+
+## Limite do catálogo
+O app inclui um catálogo local de exemplos. Ele não reúne automaticamente todos os filmes, séries, animes e doramas de todos os serviços: esse catálogo muda por país e ao longo do tempo e requer integração com uma fonte de dados atualizada e configuração de servidor. Os atalhos de streaming servem para pesquisar o título nos serviços.
+
