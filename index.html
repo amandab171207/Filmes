@@ -11,13 +11,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Filmes — seu catálogo</title>
   <link rel="preconnect" href="https://image.tmdb.org">
-  <link rel="stylesheet" href="style.css?v=3">
-  <script src="app.js?v=3" defer></script>
+  <link rel="stylesheet" href="style.css?v=4">
+  <script src="app.js?v=4" defer></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="#inicio" aria-label="Filmes, início"><span class="brand-mark">▶</span> filmes<span class="brand-dot">.</span></a>
-    <nav aria-label="Navegação principal"><a id="explore-nav" href="#catalogo">Explorar</a><a id="ai-nav" href="#assistente-ia">IA</a><a href="#catalogo" data-favorites-link>Biblioteca <span class="fav-count">0</span></a></nav>
+    <nav aria-label="Navegação principal"><a id="explore-nav" href="#catalogo">Explorar</a><a id="ai-nav" href="#assistente-ia">IA</a><a href="#catalogo" data-favorites-link>Biblioteca <span class="fav-count">0</span></a><a id="profile-nav" href="#perfil">Perfil</a></nav>
     <button class="streaming-manage-button" id="streaming-manage" type="button">＋ <span>Vincular streamings</span></button>
     <button class="install-button" id="install-app" type="button">⇩ <span>Instalar app</span></button>
     <label class="search"><span class="sr-only">Buscar títulos</span><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar filmes e animes…" autocomplete="off"></label>
@@ -32,6 +32,21 @@
       <div class="recommender-intro"><p class="eyebrow">SEU GUIA PESSOAL</p><h2 id="recommender-title">O que combina com seu momento?</h2><p>Escolha um estilo e receba sugestões do catálogo, com base no seu gosto e na sua biblioteca.</p></div>
       <div class="recommend-controls"><label for="recommend-mood">Estou com vontade de ver</label><select id="recommend-mood"><option value="">Surpreenda-me</option><option>Ação</option><option>Comédia</option><option>Ficção Científica</option><option>Terror</option><option>Romance</option><option>Animes</option><option>Séries</option><option>Clássicos</option></select><button class="button button-primary" id="recommend-button">Me recomende ↗</button></div>
       <div class="recommend-results" id="recommend-results" aria-live="polite"></div>
+    </section>
+    <section class="profile-page" id="perfil" aria-labelledby="profile-title">
+      <div class="profile-card">
+        <p class="eyebrow">SEU ESPAÇO</p>
+        <div class="profile-heading"><div class="profile-avatar" id="profile-avatar" aria-hidden="true">F</div><div><h2 id="profile-title">Seu perfil</h2><p>Personalize sua experiência no Filmes.</p></div></div>
+        <form id="profile-form">
+          <label class="profile-label" for="profile-name">Como podemos chamar você?</label>
+          <input id="profile-name" name="name" type="text" maxlength="40" autocomplete="name" placeholder="Seu nome">
+          <fieldset class="profile-genres"><legend>Quais gêneros você gosta?</legend><div class="profile-options">
+            <label><input type="checkbox" name="genre" value="Ação"> Ação</label><label><input type="checkbox" name="genre" value="Comédia"> Comédia</label><label><input type="checkbox" name="genre" value="Ficção Científica"> Ficção científica</label><label><input type="checkbox" name="genre" value="Terror"> Terror</label><label><input type="checkbox" name="genre" value="Romance"> Romance</label><label><input type="checkbox" name="genre" value="Animes"> Animes</label><label><input type="checkbox" name="genre" value="Séries"> Séries</label><label><input type="checkbox" name="genre" value="Clássicos"> Clássicos</label>
+          </div></fieldset>
+          <button class="button button-primary" type="submit">Salvar perfil</button><p class="profile-saved" id="profile-saved" role="status" aria-live="polite"></p>
+        </form>
+        <p class="profile-note">Seu perfil fica salvo neste dispositivo e navegador.</p>
+      </div>
     </section>
     <section class="catalog" id="catalogo">
       <div class="section-heading"><div><p class="eyebrow" id="section-eyebrow">ESCOLHA SUA PRÓXIMA SESSÃO</p><h2 id="section-title">Explore o catálogo</h2></div><div class="catalog-actions"><button class="favorites-toggle" id="watched-toggle" aria-pressed="false">✓ <span>Já assisti</span></button><button class="favorites-toggle" id="favorites-toggle" aria-pressed="false">▣ <span>Minha biblioteca</span></button></div></div>
