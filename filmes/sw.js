@@ -1,4 +1,4 @@
-const CACHE_NAME='filmes-app-v32';
+const CACHE_NAME='filmes-app-v33';
 const APP_FILES=['./','./index.html','./style.css','./design-overrides.css','./folder-ai.css','./app.js','./profile-cloud.js','./folder-ai.js','./manifest.webmanifest','./icons/icon.svg'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_FILES)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
