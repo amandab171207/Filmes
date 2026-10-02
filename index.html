@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10111a">
+  <meta name="theme-color" content="#111316">
   <meta name="description" content="Seu catálogo pessoal de filmes e animes.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -11,14 +11,18 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Filmes — seu catálogo</title>
   <link rel="preconnect" href="https://image.tmdb.org">
-  <link rel="stylesheet" href="style.css?v=15">
+  <link rel="stylesheet" href="style.css?v=16">
+  <link rel="stylesheet" href="design-overrides.css?v=1">
+  <link rel="stylesheet" href="folder-ai.css?v=1">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="app.js?v=18" defer></script>
+  <script src="app.js?v=25" defer></script>
+  <script src="profile-cloud.js?v=3" defer></script>
+  <script src="folder-ai.js?v=1" defer></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="#inicio" aria-label="Filmes, início"><span class="brand-mark">▶</span> filmes<span class="brand-dot">.</span></a>
-    <nav aria-label="Navegação principal"><a id="explore-nav" href="#catalogo">Explorar</a><a id="ai-nav" href="#assistente-ia">IA</a><a href="#catalogo" data-favorites-link>Biblioteca <span class="fav-count">0</span></a><a id="profile-nav" href="#perfil">Perfil</a></nav>
+    <nav aria-label="Navegação principal"><a id="explore-nav" href="#inicio">Início</a><a href="#catalogo">Descobrir</a><a href="#catalogo" data-favorites-link>Favoritos <span class="fav-count">0</span></a><a id="ai-nav" href="#assistente-ia">IA</a><a id="profile-nav" href="#perfil">Perfil</a></nav>
     <button class="cloud-button" id="cloud-open" type="button">☁ <span>Nuvem</span></button>
     <button class="streaming-manage-button" id="streaming-manage" type="button">＋ <span>Vincular streamings</span></button>
     <button class="install-button" id="install-app" type="button">⇩ <span>Instalar app</span></button>
@@ -29,6 +33,14 @@
       <div class="hero-feature-backdrop" id="hero-feature-backdrop" aria-hidden="true"></div><div class="hero-full-shade" aria-hidden="true"></div>
       <img class="hero-feature-poster" id="hero-feature-poster" src="" alt="Pôster do título em destaque">
       <div class="hero-feature-content"><div class="hero-feature-tabs"><button type="button" class="active" data-feature-mode="new">Novidades</button><button type="button" data-feature-mode="trending">Em alta</button></div><span class="hero-feature-kicker" id="hero-feature-kicker">NOVIDADE</span><h1 id="hero-feature-title">Carregando destaques…</h1><p id="hero-feature-meta"></p><div class="hero-feature-actions"><button type="button" class="hero-feature-details" id="hero-feature-details">Ver detalhes ↗</button><div class="hero-feature-arrows"><button type="button" id="hero-feature-prev" aria-label="Título anterior">‹</button><button type="button" id="hero-feature-next" aria-label="Próximo título">›</button></div></div></div><span class="hero-feature-position" id="hero-feature-position"></span>
+    </section>
+    <section class="tracking-summary" id="tracking-summary" aria-label="Resumo da sua biblioteca">
+      <div class="tracking-summary-heading"><div><p class="eyebrow">SUA ATIVIDADE</p><h2>Seu painel</h2></div><span>Seu ritmo, suas escolhas.</span></div>
+      <div class="tracking-cards">
+        <button class="tracking-card" type="button" data-summary-filter="watched"><span class="tracking-card-icon">✓</span><span><strong id="summary-watched">0</strong><small>Assistidos</small></span><span class="tracking-card-arrow">↗</span></button>
+        <button class="tracking-card" type="button" data-summary-filter="favorites"><span class="tracking-card-icon">♥</span><span><strong id="summary-favorites">0</strong><small>Favoritos</small></span><span class="tracking-card-arrow">↗</span></button>
+        <button class="tracking-card" type="button" data-summary-filter="catalog"><span class="tracking-card-icon">▤</span><span><strong id="summary-catalog">0</strong><small>No catálogo</small></span><span class="tracking-card-arrow">↗</span></button>
+      </div>
     </section>
     <section class="recommender" id="assistente-ia" aria-label="Assistente de filmes e séries">
       <div class="ai-chat-shell">
@@ -53,12 +65,24 @@
           </div></fieldset>
           <button class="button button-primary" type="submit">Salvar perfil</button><p class="profile-saved" id="profile-saved" role="status" aria-live="polite"></p>
         </form>
-        <p class="profile-note">Seu perfil fica salvo neste dispositivo e navegador.</p>
+        <section class="profile-account" aria-labelledby="profile-account-title">
+          <div class="profile-account-heading"><div><p class="eyebrow">SEUS DISPOSITIVOS</p><h3 id="profile-account-title">Conta e sincronização</h3></div><span class="profile-cloud-icon" aria-hidden="true">☁</span></div>
+          <p class="profile-account-copy">Crie uma conta ou entre com a mesma conta em cada aparelho para levar seu perfil, favoritos e histórico para o celular e o computador.</p>
+          <button class="button button-secondary profile-cloud-setup" id="profile-cloud-setup" type="button">Configurar conexão da nuvem</button>
+          <form id="profile-auth-form" class="profile-auth-form">
+            <label for="profile-email">E-mail da sua conta</label><input id="profile-email" type="email" autocomplete="email" required placeholder="voce@exemplo.com">
+            <label for="profile-password">Senha</label><input id="profile-password" type="password" autocomplete="current-password" minlength="6" required placeholder="Use a mesma senha em cada aparelho">
+            <div class="profile-auth-actions"><button class="button button-secondary" id="profile-signin" type="button">Entrar na minha conta</button><button class="button button-primary" id="profile-signup" type="button">Criar conta</button></div>
+          </form>
+          <button class="button button-secondary profile-sync" id="profile-sync" type="button">Sincronizar biblioteca</button>
+          <p id="profile-cloud-status" class="profile-cloud-status" role="status" aria-live="polite">Configure a nuvem e use o mesmo e-mail e senha nos seus dispositivos.</p>
+        </section>
+        <p class="profile-note">O nome e os gêneros do perfil são salvos no app. Para acessar em outro aparelho, entre com sua conta.</p>
       </div>
     </section>
     <section class="catalog" id="catalogo">
-      <div class="section-heading"><div><p class="eyebrow" id="section-eyebrow">ESCOLHA SUA PRÓXIMA SESSÃO</p><h2 id="section-title">Explore o catálogo</h2></div><div class="catalog-actions"><button class="favorites-toggle" id="watched-toggle" aria-pressed="false">✓ <span>Minha biblioteca</span></button><button class="favorites-toggle" id="favorites-toggle" aria-pressed="false">▣ <span>Favoritos</span></button><button class="favorites-toggle" id="manage-folders">▰ <span>Pastas</span></button></div></div>
-      <div class="folder-bar" id="folder-bar" aria-label="Pastas da biblioteca"></div>
+      <div class="section-heading"><div><p class="eyebrow" id="section-eyebrow">ESCOLHA SUA PRÓXIMA SESSÃO</p><h2 id="section-title">Explore o catálogo</h2></div><div class="catalog-actions"><button class="favorites-toggle" id="watched-toggle" aria-pressed="false">✓ <span>Minha biblioteca</span></button><button class="favorites-toggle" id="favorites-toggle" aria-pressed="false">▣ <span>Favoritos</span></button></div></div>
+      <div class="folder-bar" id="folder-bar" aria-label="Pastas da biblioteca" hidden></div>
       <div class="type-pages" id="type-pages" aria-label="Páginas por tipo de conteúdo"></div>
       <div class="language-row"><label for="language-filter">Idioma original</label><select id="language-filter"><option value="Todos">Todos os idiomas</option></select><span>O app não confirma dublagens ou legendas dos serviços.</span></div>
       <p class="catalog-note">Catálogo local de exemplos; a disponibilidade e os títulos variam conforme o serviço e a região.</p>
@@ -71,8 +95,8 @@
   </main>
   <footer><a class="brand" href="#inicio"><span class="brand-mark">▶</span> filmes<span class="brand-dot">.</span></a><span>Seu próximo favorito está por aqui.</span><a href="#inicio">Voltar ao topo ↑</a></footer>
   <dialog id="details-modal" aria-labelledby="modal-title"><button class="modal-close" id="modal-close" aria-label="Fechar detalhes">×</button><div class="modal-content" id="modal-content"></div></dialog>
-  <dialog id="cloud-modal" aria-labelledby="cloud-title"><button class="modal-close" id="cloud-close" aria-label="Fechar nuvem">×</button><div class="cloud-panel"><p class="eyebrow">SINCRONIZAÇÃO ENTRE DISPOSITIVOS</p><h2 id="cloud-title">Sua biblioteca na nuvem</h2><p class="streaming-manager-copy">Conecte um projeto Supabase para sincronizar favoritos, assistidos, pastas e perfil. Use o mesmo e-mail em cada dispositivo.</p><details class="cloud-setup"><summary>Configurar a conexão de nuvem</summary><p>Crie um projeto Supabase, copie a URL e a chave pública do projeto e execute <a href="./cloud-setup.sql" download>cloud-setup.sql</a> no SQL Editor dele. A chave pública é própria para uso no navegador; nunca cole aqui uma chave secreta ou service_role.</p><label for="cloud-url">URL do projeto</label><input id="cloud-url" type="url" placeholder="https://seu-projeto.supabase.co" autocomplete="url"><label for="cloud-key">Chave pública (publishable/anon)</label><input id="cloud-key" type="password" placeholder="sb_publishable_… ou chave anon" autocomplete="off"><button class="button button-secondary" id="cloud-save-config" type="button">Salvar conexão neste dispositivo</button></details><form id="cloud-auth-form"><label for="cloud-email">E-mail</label><input id="cloud-email" type="email" autocomplete="email" required><label for="cloud-password">Senha</label><input id="cloud-password" type="password" autocomplete="current-password" minlength="6" required><div class="cloud-buttons"><button class="button button-secondary" id="cloud-signin" type="button">Entrar</button><button class="button button-secondary" id="cloud-signup" type="button">Criar conta</button></div></form><div class="cloud-sync-row"><button class="button button-primary" id="cloud-sync" type="button">Sincronizar agora</button><button class="cloud-signout" id="cloud-signout" type="button" hidden>Sair</button></div><div id="cloud-conflict-actions" class="cloud-conflict-actions" hidden><p>Há alterações neste aparelho e na nuvem. Qual versão quer manter?</p><button class="button button-secondary" id="cloud-use-local" type="button">Enviar deste aparelho</button><button class="button button-secondary" id="cloud-use-remote" type="button">Baixar da nuvem</button></div><p id="cloud-status" class="cloud-status" role="status" aria-live="polite">Configure sua conexão para começar.</p></div></dialog>
-  <dialog id="folders-modal" aria-labelledby="folders-title"><button class="modal-close" id="folders-close" aria-label="Fechar pastas">×</button><div class="streaming-manager"><p class="eyebrow">SUA ORGANIZAÇÃO</p><h2 id="folders-title">Pastas da biblioteca</h2><p class="streaming-manager-copy">Crie pastas como “Quero assistir”, “Favoritos da família” ou “Doramas”. Abra os detalhes de um título para adicioná-lo a uma ou mais pastas.</p><form id="folder-form" class="folder-form"><label class="sr-only" for="folder-name">Nome da pasta</label><input id="folder-name" maxlength="40" placeholder="Nome da nova pasta" required><button class="button button-primary" type="submit">Criar pasta</button></form><div id="folder-list" class="folder-list"></div></div></dialog>
+  <dialog id="cloud-modal" aria-labelledby="cloud-title"><button class="modal-close" id="cloud-close" aria-label="Fechar nuvem">×</button><div class="cloud-panel"><p class="eyebrow">SINCRONIZAÇÃO ENTRE DISPOSITIVOS</p><h2 id="cloud-title">Sua biblioteca na nuvem</h2><p class="streaming-manager-copy">Sincronize favoritos, assistidos, pastas e perfil em todos os seus aparelhos. Use a mesma conta em cada dispositivo.</p><details class="cloud-setup"><summary>Configurar a conexão de nuvem</summary><p>O endereço do projeto Supabase já está preenchido. Cole abaixo a chave pública (publishable/anon) do projeto e execute <a href="./cloud-setup.sql" download>cloud-setup.sql</a> no SQL Editor dele uma vez. Nunca use uma chave secreta ou service_role no navegador.</p><label for="cloud-url">URL do projeto</label><input id="cloud-url" type="url" placeholder="https://seu-projeto.supabase.co" autocomplete="url"><label for="cloud-key">Chave pública (publishable/anon)</label><input id="cloud-key" type="password" placeholder="sb_publishable_… ou chave anon" autocomplete="off"><button class="button button-secondary" id="cloud-save-config" type="button">Salvar conexão neste dispositivo</button></details><form id="cloud-auth-form"><label for="cloud-email">E-mail</label><input id="cloud-email" type="email" autocomplete="email" required><label for="cloud-password">Senha</label><input id="cloud-password" type="password" autocomplete="current-password" minlength="6" required><div class="cloud-buttons"><button class="button button-secondary" id="cloud-signin" type="button">Entrar</button><button class="button button-secondary" id="cloud-signup" type="button">Criar conta</button></div></form><div class="cloud-sync-row"><button class="button button-primary" id="cloud-sync" type="button">Sincronizar agora</button><button class="cloud-signout" id="cloud-signout" type="button" hidden>Sair</button></div><div id="cloud-conflict-actions" class="cloud-conflict-actions" hidden><p>Há alterações neste aparelho e na nuvem. Qual versão quer manter?</p><button class="button button-secondary" id="cloud-use-local" type="button">Enviar deste aparelho</button><button class="button button-secondary" id="cloud-use-remote" type="button">Baixar da nuvem</button></div><p id="cloud-status" class="cloud-status" role="status" aria-live="polite">Configure sua conexão para começar.</p></div></dialog>
+  <dialog id="folders-modal" aria-labelledby="folders-title"><button class="modal-close" id="folders-close" aria-label="Fechar pastas">×</button><div class="streaming-manager"><p class="eyebrow">SUA ORGANIZAÇÃO</p><h2 id="folders-title">Pastas da biblioteca</h2><p class="streaming-manager-copy">Crie pastas como “Quero assistir”, “Favoritos da família” ou “Doramas”. Abra os detalhes de um título para adicioná-lo a uma ou mais pastas.</p><section class="folder-ai-creator" aria-labelledby="folder-ai-title"><div class="folder-ai-title-row"><span aria-hidden="true">✦</span><div><h3 id="folder-ai-title">Criar uma pasta com o assistente</h3><p>Descreva como quer organizar seus títulos.</p></div></div><form id="folder-ai-form"><label class="sr-only" for="folder-ai-prompt">Descreva a pasta que você quer criar</label><input id="folder-ai-prompt" type="text" maxlength="120" placeholder="Ex.: animes de ação para assistir depois" required><button class="button button-primary" type="submit">✦ Criar para mim</button></form><p class="folder-ai-status" id="folder-ai-status" role="status" aria-live="polite">Sugestão local baseada nas palavras do seu pedido e nas categorias do catálogo.</p></section><form id="folder-form" class="folder-form"><label class="sr-only" for="folder-name">Nome da pasta</label><input id="folder-name" maxlength="40" placeholder="Ou digite o nome da pasta" required><button class="button button-secondary" type="submit">Criar manualmente</button></form><div id="folder-list" class="folder-list"></div></div></dialog>
   <dialog id="streaming-modal" aria-labelledby="streaming-modal-title"><button class="modal-close" id="streaming-close" aria-label="Fechar streamings">×</button><div class="streaming-manager"><p class="eyebrow">SEUS SERVIÇOS</p><h2 id="streaming-modal-title">Vincular streamings</h2><p class="streaming-manager-copy">Selecione os serviços que você usa para destacar atalhos de busca. A conexão de contas e assinaturas não está disponível neste app.</p><div id="streaming-manager-list" class="streaming-manager-list"></div></div></dialog>
   <dialog id="install-modal" aria-labelledby="install-title"><button class="modal-close" id="install-close" aria-label="Fechar instruções">×</button><div class="streaming-manager"><p class="eyebrow">FILMES NO SEU DISPOSITIVO</p><h2 id="install-title">Instale o app</h2><p class="streaming-manager-copy" id="install-instructions">No menu do navegador, escolha “Instalar app” ou “Adicionar à tela inicial”. O app precisa estar aberto por um endereço seguro (HTTPS) ou localhost.</p></div></dialog>
 </body>

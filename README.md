@@ -62,21 +62,15 @@ O banner inicial alterna entre Novidades (ordenadas pelo ano do catálogo local)
 ## Sincronização na nuvem (opcional)
 A sincronização usa Supabase Auth e uma tabela privada por usuário.
 
-1. Crie um projeto Supabase e execute [`cloud-setup.sql`](cloud-setup.sql) no SQL Editor.
+1. No projeto Supabase já preparado para este app, execute [`cloud-setup.sql`](cloud-setup.sql) no SQL Editor, se ainda não o fez.
 2. Em Authentication → URL Configuration, adicione `https://amandab171207.github.io/Filmes/` como Site URL e Redirect URL.
-3. No app, abra **Nuvem → Configurar a conexão**, informe a Project URL e a chave pública (publishable/anon) e salve. Nunca use a `service_role`/secret key no navegador.
-4. Crie uma conta e entre com o mesmo e-mail em cada aparelho; então toque **Sincronizar agora**.
+3. No app, abra **Nuvem → Configurar a conexão**. A Project URL já aparece preenchida; informe a chave pública (publishable/anon) e salve. Nunca use a `service_role`/secret key no navegador.
+4. Repita a configuração da chave pública em cada aparelho.
+5. Na aba **Perfil**, crie uma conta com e-mail e senha no primeiro aparelho. Nos demais, use **Entrar na minha conta** com os mesmos dados; o app tenta sincronizar a biblioteca automaticamente.
 
 Favoritos, títulos assistidos, pastas, perfil e streamings selecionados são enviados. Em um conflito entre alterações offline, o app pede para escolher a versão deste aparelho ou da nuvem. Sem a configuração do projeto, a nuvem permanece desconectada e os dados continuam locais.
 
-
-## Conectar sincronização na nuvem
-1. Crie um projeto Supabase e execute [`cloud-setup.sql`](cloud-setup.sql) no SQL Editor.
-2. Em Authentication → URL Configuration, defina `https://amandab171207.github.io/Filmes/` como Site URL/URL de redirecionamento.
-3. No app, abra **Nuvem → Configurar a conexão**, informe a Project URL e a chave pública do projeto e salve. Nunca use a chave `service_role` ou uma chave secreta no navegador.
-4. Crie uma conta e entre com o mesmo e-mail e senha em cada dispositivo. Use **Sincronizar agora** para enviar ou receber favoritos, assistidos, pastas, perfil e streamings escolhidos. Em alterações divergentes, escolha qual versão manter.
-
-A URL/chave pública é guardada localmente em cada dispositivo e deve ser configurada uma vez em cada navegador. Sem um projeto Supabase conectado, os dados continuam locais.
+A chave pública fica salva localmente e deve ser configurada em cada navegador. Sem a chave, o SQL executado e a conta de usuário, os dados continuam locais.
 
 
 O banner de destaques agora ocupa toda a faixa inicial e apresenta a arte de fundo e o pôster do título selecionado.
