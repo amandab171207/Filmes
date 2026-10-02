@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10111a">
+  <meta name="description" content="Seu catálogo pessoal de filmes e animes.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Filmes — seu catálogo</title>
+  <link rel="preconnect" href="https://image.tmdb.org">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Filmes, início"><span class="brand-mark">▶</span> filmes<span class="brand-dot">.</span></a>
+    <nav aria-label="Navegação principal"><a href="#catalogo">Explorar</a><a href="#assistente-ia">IA</a><a href="#catalogo" data-favorites-link>Biblioteca <span class="fav-count">0</span></a></nav>
+    <button class="streaming-manage-button" id="streaming-manage" type="button">＋ <span>Vincular streamings</span></button>
+    <button class="install-button" id="install-app" type="button">⇩ <span>Instalar app</span></button>
+    <label class="search"><span class="sr-only">Buscar títulos</span><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar filmes e animes…" autocomplete="off"></label>
+  </header>
+  <main id="inicio">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy"><p class="eyebrow">SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</p><h1 id="hero-title">Encontre algo<br>incrível para <em>assistir.</em></h1><p class="hero-subtitle">Filmes e animes que merecem um lugar na sua lista.</p><a class="button button-primary" href="#catalogo">Explorar catálogo <span>↓</span></a></div>
+      <div class="hero-art" role="img" aria-label="Arte cinematográfica de uma cidade à noite"><div class="hero-orb"></div><div class="hero-caption"><span>EM DESTAQUE</span><strong>Histórias que ficam.</strong></div></div>
+      <div class="hero-index">01 <span></span> 08</div>
+    </section>
+    <section class="recommender" id="assistente-ia" aria-labelledby="recommender-title">
+      <div class="recommender-intro"><p class="eyebrow">SEU GUIA PESSOAL</p><h2 id="recommender-title">O que combina com seu momento?</h2><p>Escolha um estilo e receba sugestões do catálogo, com base no seu gosto e na sua biblioteca.</p></div>
+      <div class="recommend-controls"><label for="recommend-mood">Estou com vontade de ver</label><select id="recommend-mood"><option value="">Surpreenda-me</option><option>Ação</option><option>Comédia</option><option>Ficção Científica</option><option>Terror</option><option>Romance</option><option>Animes</option><option>Séries</option><option>Clássicos</option></select><button class="button button-primary" id="recommend-button">Me recomende ↗</button></div>
+      <div class="recommend-results" id="recommend-results" aria-live="polite"></div>
+    </section>
+    <section class="catalog" id="catalogo">
+      <div class="section-heading"><div><p class="eyebrow" id="section-eyebrow">ESCOLHA SUA PRÓXIMA SESSÃO</p><h2 id="section-title">Explore o catálogo</h2></div><div class="catalog-actions"><button class="favorites-toggle" id="watched-toggle" aria-pressed="false">✓ <span>Já assisti</span></button><button class="favorites-toggle" id="favorites-toggle" aria-pressed="false">▣ <span>Minha biblioteca</span></button></div></div>
+      <div class="filters" id="filters" aria-label="Filtrar por categoria"></div>
+      <p class="result-count" id="result-count" aria-live="polite"></p>
+      <div class="movie-grid" id="movie-grid"></div>
+      <div class="empty-state" id="empty-state" hidden><span>⌕</span><h3>Nenhum título encontrado</h3><p>Tente outra busca ou escolha uma categoria diferente.</p><button class="button button-secondary" id="clear-filters">Limpar filtros</button></div>
+    </section>
+  </main>
+  <footer><a class="brand" href="#inicio"><span class="brand-mark">▶</span> filmes<span class="brand-dot">.</span></a><span>Seu próximo favorito está por aqui.</span><a href="#inicio">Voltar ao topo ↑</a></footer>
+  <dialog id="details-modal" aria-labelledby="modal-title"><button class="modal-close" id="modal-close" aria-label="Fechar detalhes">×</button><div class="modal-content" id="modal-content"></div></dialog>
+  <dialog id="streaming-modal" aria-labelledby="streaming-modal-title"><button class="modal-close" id="streaming-close" aria-label="Fechar streamings">×</button><div class="streaming-manager"><p class="eyebrow">SEUS SERVIÇOS</p><h2 id="streaming-modal-title">Vincular streamings</h2><p class="streaming-manager-copy">Selecione os serviços que você usa para destacar atalhos de busca. A conexão de contas e assinaturas não está disponível neste app.</p><div id="streaming-manager-list" class="streaming-manager-list"></div></div></dialog>
+  <dialog id="install-modal" aria-labelledby="install-title"><button class="modal-close" id="install-close" aria-label="Fechar instruções">×</button><div class="streaming-manager"><p class="eyebrow">FILMES NO SEU DISPOSITIVO</p><h2 id="install-title">Instale o app</h2><p class="streaming-manager-copy" id="install-instructions">No menu do navegador, escolha “Instalar app” ou “Adicionar à tela inicial”. O app precisa estar aberto por um endereço seguro (HTTPS) ou localhost.</p></div></dialog>
+</body>
+</html>
+
