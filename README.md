@@ -54,3 +54,7 @@ O catálogo tem páginas de Filmes, Séries, Animes, Doramas e Novelas, com pagi
 ## Idiomas
 O filtro e os detalhes mostram o idioma original dos títulos de exemplo. Áudios dublados e legendas mudam conforme o título, o país e o serviço; o app não consulta esses dados nem vincula contas de streaming.
 
+
+## Destaques do banner
+O banner inicial alterna entre Novidades (ordenadas pelo ano do catálogo local) e Em alta (ordenadas pela nota cadastrada). Use as setas para navegar e abra os detalhes do título em destaque.
+
