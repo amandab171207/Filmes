@@ -21,7 +21,7 @@ Para uma olhada rápida, também é possível abrir `index.html` diretamente, ma
 - Biblioteca pessoal com persistência local.
 - Lista “Já assisti” para filmes, séries e animes, salva localmente.
 - Modal com sinopse e informações do título.
-- Atalhos para pesquisar cada título nos catálogos de Netflix, Prime Video, Disney+, Max, Apple TV+, Paramount+, Globoplay, Crunchyroll e MUBI.
+- Atalhos para pesquisar cada título nos catálogos de Netflix, Prime Video, Disney+, Max, Apple TV+, Paramount+, Globoplay e Crunchyroll.
 - Botão para selecionar seus serviços de streaming favoritos e abrir cada plataforma.
 - Assistente em formato de conversa que recomenda títulos do catálogo conforme o pedido, as preferências do perfil e a biblioteca.
 - Aba **IA** na navegação para acessar o assistente de recomendações.
