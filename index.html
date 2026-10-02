@@ -11,8 +11,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Filmes — seu catálogo</title>
   <link rel="preconnect" href="https://image.tmdb.org">
-  <link rel="stylesheet" href="style.css?v=6">
-  <script src="app.js?v=8" defer></script>
+  <link rel="stylesheet" href="style.css?v=9">
+  <script src="app.js?v=10" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -28,10 +28,16 @@
       <div class="hero-art" role="img" aria-label="Arte cinematográfica de uma cidade à noite"><div class="hero-orb"></div><div class="hero-caption"><span>EM DESTAQUE</span><strong>Histórias que ficam.</strong></div></div>
       <div class="hero-index">01 <span></span> 08</div>
     </section>
-    <section class="recommender" id="assistente-ia" aria-labelledby="recommender-title">
-      <div class="recommender-intro"><p class="eyebrow">SEU GUIA PESSOAL</p><h2 id="recommender-title">O que combina com seu momento?</h2><p>Escolha um estilo e receba sugestões do catálogo, com base no seu gosto e na sua biblioteca.</p></div>
-      <div class="recommend-controls"><label for="recommend-mood">Estou com vontade de ver</label><select id="recommend-mood"><option value="">Surpreenda-me</option><option>Ação</option><option>Comédia</option><option>Ficção Científica</option><option>Terror</option><option>Romance</option><option>Animes</option><option>Séries</option><option>Clássicos</option></select><button class="button button-primary" id="recommend-button">Me recomende ↗</button></div>
-      <div class="recommend-results" id="recommend-results" aria-live="polite"></div>
+    <section class="recommender" id="assistente-ia" aria-label="Assistente de filmes e séries">
+      <div class="ai-chat-shell">
+        <div class="ai-chat-heading"><span class="ai-chat-logo" aria-hidden="true">✦</span><div><strong>Assistente Filmes</strong><span>Recomendações do seu catálogo</span></div></div>
+        <div class="chat-messages" id="recommend-results" aria-live="polite" aria-label="Conversa com o assistente">
+          <div class="chat-turn assistant-turn"><span class="chat-avatar" aria-hidden="true">✦</span><div class="chat-bubble">Oi! Posso ajudar a escolher seu próximo filme, série ou anime. O que você está com vontade de assistir?</div></div>
+        </div>
+        <div class="chat-suggestions" id="chat-suggestions" aria-label="Sugestões de mensagem"><button type="button" data-prompt="Quero uma comédia leve">Uma comédia leve</button><button type="button" data-prompt="Me indique uma série de ficção científica">Uma série de ficção científica</button><button type="button" data-prompt="Quero um anime de romance">Um anime romântico</button><button type="button" data-prompt="Surpreenda-me">Surpreenda-me</button></div>
+        <form class="chat-composer" id="recommend-form"><label class="sr-only" for="recommend-input">Escreva o que quer assistir</label><textarea id="recommend-input" rows="1" maxlength="300" placeholder="Pergunte sobre filmes, séries ou animes..."></textarea><button type="submit" aria-label="Enviar mensagem">↑</button></form>
+        <p class="chat-disclaimer">As sugestões são selecionadas do catálogo deste app.</p>
+      </div>
     </section>
     <section class="profile-page" id="perfil" aria-labelledby="profile-title">
       <div class="profile-card">
