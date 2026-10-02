@@ -50,3 +50,7 @@ O app inclui um catálogo local de exemplos. Ele não reúne automaticamente tod
 ## Páginas por tipo
 O catálogo tem páginas de Filmes, Séries, Animes, Doramas e Novelas, com paginação de resultados. As entradas de doramas e novelas são exemplos locais e podem não representar o catálogo completo ou a disponibilidade atual dos streamings.
 
+
+## Idiomas
+O filtro e os detalhes mostram o idioma original dos títulos de exemplo. Áudios dublados e legendas mudam conforme o título, o país e o serviço; o app não consulta esses dados nem vincula contas de streaming.
+
