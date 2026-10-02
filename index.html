@@ -11,8 +11,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Filmes — seu catálogo</title>
   <link rel="preconnect" href="https://image.tmdb.org">
-  <link rel="stylesheet" href="style.css?v=12">
-  <script src="app.js?v=13" defer></script>
+  <link rel="stylesheet" href="style.css?v=13">
+  <script src="app.js?v=14" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -25,8 +25,7 @@
   <main id="inicio">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy"><p class="eyebrow">SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</p><h1 id="hero-title">Encontre algo<br>incrível para <em>assistir.</em></h1><p class="hero-subtitle">Filmes e animes que merecem um lugar na sua lista.</p><a class="button button-primary" href="#catalogo">Explorar catálogo <span>↓</span></a></div>
-      <div class="hero-art" role="img" aria-label="Arte cinematográfica de uma cidade à noite"><div class="hero-orb"></div><div class="hero-caption"><span>EM DESTAQUE</span><strong>Histórias que ficam.</strong></div></div>
-      <div class="hero-index">01 <span></span> 08</div>
+      <div class="hero-art" id="hero-feature" aria-label="Novidades e títulos em alta"><div class="hero-feature-backdrop" id="hero-feature-backdrop"></div><div class="hero-feature-content"><div class="hero-feature-tabs"><button type="button" class="active" data-feature-mode="new">Novidades</button><button type="button" data-feature-mode="trending">Em alta</button></div><span class="hero-feature-kicker" id="hero-feature-kicker">NOVIDADE</span><h2 id="hero-feature-title">Carregando destaques…</h2><p id="hero-feature-meta"></p><div class="hero-feature-actions"><button type="button" class="hero-feature-details" id="hero-feature-details">Ver detalhes ↗</button><div class="hero-feature-arrows"><button type="button" id="hero-feature-prev" aria-label="Título anterior">‹</button><button type="button" id="hero-feature-next" aria-label="Próximo título">›</button></div></div><span class="hero-feature-position" id="hero-feature-position"></span></div></div>
     </section>
     <section class="recommender" id="assistente-ia" aria-label="Assistente de filmes e séries">
       <div class="ai-chat-shell">
