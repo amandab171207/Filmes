@@ -81,3 +81,9 @@ A URL/chave pública é guardada localmente em cada dispositivo e deve ser confi
 
 O banner de destaques agora ocupa toda a faixa inicial e apresenta a arte de fundo e o pôster do título selecionado.
 
+
+Ao salvar ou atualizar o perfil, o app também o grava automaticamente na nuvem se a conexão Supabase estiver configurada e a conta estiver conectada. Sem conexão, o perfil permanece salvo no aparelho e o app informa que falta conectar.
+
+
+Os doramas e novelas do catálogo de exemplos agora têm capas próprias vinculadas a imagens públicas de TMDB, TheTVDB e outras páginas públicas de divulgação.
+
