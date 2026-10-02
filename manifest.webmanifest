@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "Filmes — catálogo pessoal",
+  "short_name": "Filmes",
+  "description": "Catálogo pessoal de filmes, séries e animes.",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#10111a",
+  "theme_color": "#10111a",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
+
