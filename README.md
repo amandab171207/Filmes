@@ -78,3 +78,6 @@ Favoritos, títulos assistidos, pastas, perfil e streamings selecionados são en
 
 A URL/chave pública é guardada localmente em cada dispositivo e deve ser configurada uma vez em cada navegador. Sem um projeto Supabase conectado, os dados continuam locais.
 
+
+O banner de destaques agora ocupa toda a faixa inicial e apresenta a arte de fundo e o pôster do título selecionado.
+
