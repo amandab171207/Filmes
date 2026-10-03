@@ -46,7 +46,19 @@ Use o botão **Pastas** para criar e remover pastas personalizadas. Abra os deta
 ## Limite do catálogo
 O app inclui um catálogo local de exemplos. Ele não reúne automaticamente todos os filmes, séries, animes e doramas de todos os serviços: esse catálogo muda por país e ao longo do tempo e requer integração com uma fonte de dados atualizada e configuração de servidor. Os atalhos de streaming servem para pesquisar o título nos serviços.
 
+## Catálogo disponível no Brasil (TMDB)
 
+Com a fonte configurada, **Explorar títulos disponíveis no Brasil** consulta filmes e séries que o TMDB lista para o país, incluindo assinatura, gratuito, anúncios, aluguel e compra. Os resultados são paginados; os filtros separam filmes, séries, novelas, animes (incluindo longas de animação japonesa) e doramas. A classificação de anime, dorama e novela é estimada pelos gêneros e países de origem do TMDB e pode ter erros. A busca por texto também percorre páginas de resultados.
+
+Para habilitar no GitHub Pages:
+
+1. Crie uma conta no [TMDB](https://www.themoviedb.org/) e solicite um API Read Access Token nas configurações da conta.
+2. Publique `tmdb-proxy-worker.js` como um Cloudflare Worker.
+3. Configure o segredo `TMDB_READ_ACCESS_TOKEN` no Worker. Não coloque essa chave no JavaScript do site nem no GitHub.
+4. No site, escolha **Configurar fonte do catálogo** e informe a URL HTTPS pública do Worker. Essa URL é salva somente neste navegador.
+5. Escolha **Explorar títulos disponíveis no Brasil** e use as categorias e páginas.
+
+O Worker aceita somente as rotas de busca e descoberta necessárias. Os dados de disponibilidade de streaming são fornecidos pelo TMDB com dados da JustWatch; o site mostra atribuição junto aos resultados. O catálogo depende da cobertura e atualização dessa fonte: não é possível garantir literalmente todo título exibido no Brasil nem a disponibilidade em tempo real. O TMDB não endossa nem certifica este produto.
 ## Páginas por tipo
 O catálogo tem páginas de Filmes, Séries, Animes, Doramas e Novelas, com paginação de resultados. As entradas de doramas e novelas são exemplos locais e podem não representar o catálogo completo ou a disponibilidade atual dos streamings.
 
