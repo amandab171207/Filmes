@@ -1,0 +1,33 @@
+name: Deploy TMDB Worker
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - tmdb-proxy-worker.js
+      - wrangler.toml
+      - .github/workflows/deploy-tmdb-worker.yml
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o projeto
+        uses: actions/checkout@v4
+
+      - name: Instalar Wrangler
+        run: npm install --global wrangler
+
+      - name: Publicar Worker
+        run: wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Configurar segredo TMDB
+        run: printf '%s' "${{ secrets.TMDB_READ_ACCESS_TOKEN }}" | wrangler secret put TMDB_READ_ACCESS_TOKEN
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
