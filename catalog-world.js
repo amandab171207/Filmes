@@ -7,7 +7,7 @@ const catalogSearch=document.querySelector('#search');
 const catalogBrowseButton=document.querySelector('#catalog-browse-br');
 const localCatalogItems=[...movies];
 let worldSearchTimer=null,worldRequest=0,worldItems=[],worldMode='local',worldPage=1,worldTotalPages=1,worldTotalResults=0;
-const catalogAttribution='Dados de disponibilidade por TMDB, fonte JustWatch.';
+const catalogAttribution='Filmes disponíveis no Brasil segundo dados do TMDB/JustWatch. A lista é atualizada pela fonte e pode mudar.';
 function configuredCatalogEndpoint(){return(localStorage.getItem(worldConfigKey)||'').trim().replace(/\/$/,'')}
 function guessWorldType(item){
   const origin=(item.origin_country||[]).map(code=>code.toUpperCase());
@@ -31,7 +31,7 @@ function fromWorldResult(item){
   return{id:`tmdb-${item.media_type}-${item.id}`,tmdbId:item.id,mediaType:item.media_type,title,year,type,categories:categories.length?categories:['Drama'],rating:item.vote_average?Number(item.vote_average).toFixed(1):'—',duration:item.media_type==='movie'?'Filme':'Série',poster:item.poster_path?`${TMDB_IMAGE_BASE}${item.poster_path}`:'https://placehold.co/500x750/202231/f3a75a?text=Sem+imagem',synopsis:item.overview||'Sinopse não disponível.',language:item.original_language||'—',worldCatalog:true};
 }
 function browseSourcesForType(type){
-  if(type==='Filmes')return[{path:'/discover/movie',media:'movie'}];
+  if(type==='Filmes')return[{path:'/discover/movie',media:'movie',filters:{with_watch_monetization_types:'flatrate|free|ads|rent|buy'}}];
   if(type==='Séries')return[{path:'/discover/tv',media:'tv'}];
   if(type==='Animes')return[{path:'/discover/tv',media:'tv',filters:{with_genres:'16',with_original_language:'ja'}},{path:'/discover/movie',media:'movie',filters:{with_genres:'16',with_original_language:'ja'}}];
   if(type==='Doramas')return[{path:'/discover/tv',media:'tv',filters:{with_origin_country:'KR|JP',without_genres:'16'}}];
@@ -82,7 +82,7 @@ async function loadWorldPage(page){
     worldTotalPages=totalPages;worldTotalResults=totalResults;
     render();
     drawWorldPagination();
-    catalogStatus.textContent=worldMode==='search'?`Resultados da busca mundial · página ${worldPage} de ${worldTotalPages}.`:`Disponibilidade no Brasil · página ${worldPage} de ${worldTotalPages}.`;
+    catalogStatus.textContent=worldMode==='search'?`Resultados da busca mundial · página ${worldPage} de ${worldTotalPages}.`:`Filmes disponíveis no Brasil · página ${worldPage} de ${worldTotalPages}.`;
   }catch(error){
     if(request!==worldRequest)return;
     catalogStatus.textContent='Não foi possível consultar o catálogo agora. Confira a URL do proxy TMDB e tente novamente.';
@@ -94,7 +94,7 @@ function useLocalCatalog(message='Catálogo local de exemplos. Configure uma fon
 }
 catalogBrowseButton.addEventListener('click',()=>{
   if(query){query='';catalogSearch.value='';}
-  typeFilter='Todos';activeCategory='Todos';favoritesOnly=false;watchedOnly=false;folderFilter=null;catalogPage=1;worldMode='browse';render();loadWorldPage(1);
+  typeFilter='Filmes';activeCategory='Todos';favoritesOnly=false;watchedOnly=false;folderFilter=null;catalogPage=1;worldMode='browse';render();loadWorldPage(1);
 });
 document.querySelector('#catalog-source-config').addEventListener('click',()=>{
   const current=configuredCatalogEndpoint();
