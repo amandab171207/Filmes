@@ -82,7 +82,7 @@ async function loadWorldPage(page){
     worldTotalPages=totalPages;worldTotalResults=totalResults;
     render();
     drawWorldPagination();
-    catalogStatus.textContent=worldMode==='search'?`Resultados da busca mundial · página ${worldPage} de ${worldTotalPages}.`:`Filmes disponíveis no Brasil · página ${worldPage} de ${worldTotalPages}.`;
+    catalogStatus.textContent=worldMode==='search'?`Resultados da busca mundial · página ${worldPage} de ${worldTotalPages}.`:`Filmes disponíveis no Brasil · página ${worldPage} de ${worldTotalPages}. O catálogo é carregado por páginas para não travar o app.`;
   }catch(error){
     if(request!==worldRequest)return;
     catalogStatus.textContent='Não foi possível consultar o catálogo agora. Confira a URL do proxy TMDB e tente novamente.';
@@ -94,7 +94,18 @@ function useLocalCatalog(message='Catálogo local de exemplos. Configure uma fon
 }
 catalogBrowseButton.addEventListener('click',()=>{
   if(query){query='';catalogSearch.value='';}
-  typeFilter='Filmes';activeCategory='Todos';favoritesOnly=false;watchedOnly=false;folderFilter=null;catalogPage=1;worldMode='browse';render();loadWorldPage(1);
+  typeFilter='Filmes';activeCategory='Todos';favoritesOnly=false;watchedOnly=false;folderFilter=null;catalogPage=1;worldMode='browse';render();
+  if(!configuredCatalogEndpoint()){
+    const value=prompt('Para carregar o catálogo de filmes disponível no Brasil, cole a URL HTTPS do seu Cloudflare Worker TMDB. A chave secreta fica somente no Worker e nunca deve ser colada aqui.','');
+    if(value===null)return;
+    const endpoint=value.trim().replace(/\\/$/,'');
+    if(!endpoint||!/^https:\\/\\//i.test(endpoint)||endpoint.includes('api.themoviedb.org')){
+      alert('Informe uma URL HTTPS válida do seu proxy TMDB (Cloudflare Worker).');
+      return;
+    }
+    localStorage.setItem(worldConfigKey,endpoint);
+  }
+  loadWorldPage(1);
 });
 document.querySelector('#catalog-source-config').addEventListener('click',()=>{
   const current=configuredCatalogEndpoint();
