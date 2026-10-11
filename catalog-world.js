@@ -97,10 +97,11 @@ catalogBrowseButton.addEventListener('click',()=>{
   typeFilter='Filmes';activeCategory='Todos';favoritesOnly=false;watchedOnly=false;folderFilter=null;catalogPage=1;worldMode='browse';render();
   if(!configuredCatalogEndpoint()){
     const value=prompt('Para carregar os filmes disponíveis no Brasil, informe a URL HTTPS do Cloudflare Worker TMDB. A chave secreta deve ficar somente no Worker.','');
-    if(value===null)return;
-    const endpoint=value.trim().replace(/\\/$/,'');
+    if(value===null){useLocalCatalog();return;}
+    const endpoint=value.trim().replace(/\/$/,'');
     if(!endpoint||!/^https:\/\//i.test(endpoint)||endpoint.includes('api.themoviedb.org')){
       alert('Informe uma URL HTTPS válida do seu proxy TMDB (Cloudflare Worker).');
+      useLocalCatalog('URL inválida; exemplos locais exibidos. Configure o proxy para carregar o catálogo do Brasil.');
       return;
     }
     localStorage.setItem(worldConfigKey,endpoint);
