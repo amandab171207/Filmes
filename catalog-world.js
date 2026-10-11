@@ -7,7 +7,7 @@ const catalogSearch=document.querySelector('#search');
 const catalogBrowseButton=document.querySelector('#catalog-browse-br');
 const localCatalogItems=[...movies];
 let worldSearchTimer=null,worldRequest=0,worldItems=[],worldMode='local',worldPage=1,worldTotalPages=1,worldTotalResults=0;
-const catalogAttribution='Filmes disponíveis no Brasil segundo dados do TMDB/JustWatch. A lista é atualizada pela fonte e pode mudar.';
+const catalogAttribution='Filmes disponíveis no Brasil segundo dados do TMDB/JustWatch. A cobertura pode variar e a lista pode mudar.';
 function configuredCatalogEndpoint(){return(localStorage.getItem(worldConfigKey)||'').trim().replace(/\/$/,'')}
 function guessWorldType(item){
   const origin=(item.origin_country||[]).map(code=>code.toUpperCase());
@@ -69,20 +69,20 @@ async function loadWorldPage(page){
     }else{
       const sources=browseSourcesForType(typeFilter);
       perApiPage=20*sources.length;
-      const payloads=await Promise.all(sources.map(source=>fetchWorld(endpoint,source.path,{language:'pt-BR',page:worldPage,region:'BR',watch_region:'BR',with_watch_monetization_types:'flatrate|free|ads|rent|buy',sort_by:'popularity.desc',include_adult:'false',include_video:'false',...source.filters})));
+      const payloads=await Promise.all(sources.map(source=>fetchWorld(endpoint,source.path,{language:'pt-BR',page:worldPage,region:'BR',watch_region:'BR',with_watch_monetization_types:'flatrate|free|ads|rent|buy',sort_by:'popularity.desc',include_adult:'false',include_video:'false',...source.filters,watch_region:'BR',with_watch_monetization_types:'flatrate|free|ads|rent|buy'})));
       if(request!==worldRequest)return;
       results=payloads.flatMap((payload,index)=>(payload.results||[]).map(item=>({...item,media_type:sources[index].media})));
       totalPages=Math.min(500,Math.max(...payloads.map(payload=>Number(payload.total_pages)||1)));
       totalResults=payloads.reduce((sum,payload)=>sum+(Number(payload.total_results)||0),0);
     }
-    worldItems=results.map(fromWorldResult).filter(item=>item.title);
+    worldItems=[...new Map(results.map(fromWorldResult).filter(item=>item.title).map(item=>[item.id,item])).values()];
     movies.splice(0,movies.length,...worldItems);
     pageSize=perApiPage;
     catalogPage=1;
     worldTotalPages=totalPages;worldTotalResults=totalResults;
     render();
     drawWorldPagination();
-    catalogStatus.textContent=worldMode==='search'?`Resultados da busca mundial · página ${worldPage} de ${worldTotalPages}.`:`Filmes disponíveis no Brasil · página ${worldPage} de ${worldTotalPages}. O catálogo é carregado por páginas para não travar o app.`;
+    catalogStatus.textContent=worldMode==='search'?`Busca mundial no TMDB · página ${worldPage} de ${worldTotalPages}. A busca não confirma disponibilidade por streaming no Brasil.`:`Títulos disponíveis no Brasil · página ${worldPage} de ${worldTotalPages}. O catálogo é carregado por páginas para não travar o app.`;
   }catch(error){
     if(request!==worldRequest)return;
     catalogStatus.textContent='Não foi possível consultar o catálogo agora. Confira a URL do proxy TMDB e tente novamente.';
@@ -96,10 +96,10 @@ catalogBrowseButton.addEventListener('click',()=>{
   if(query){query='';catalogSearch.value='';}
   typeFilter='Filmes';activeCategory='Todos';favoritesOnly=false;watchedOnly=false;folderFilter=null;catalogPage=1;worldMode='browse';render();
   if(!configuredCatalogEndpoint()){
-    const value=prompt('Para carregar o catálogo de filmes disponível no Brasil, cole a URL HTTPS do seu Cloudflare Worker TMDB. A chave secreta fica somente no Worker e nunca deve ser colada aqui.','');
+    const value=prompt('Para carregar os filmes disponíveis no Brasil, informe a URL HTTPS do Cloudflare Worker TMDB. A chave secreta deve ficar somente no Worker.','');
     if(value===null)return;
     const endpoint=value.trim().replace(/\\/$/,'');
-    if(!endpoint||!/^https:\\/\\//i.test(endpoint)||endpoint.includes('api.themoviedb.org')){
+    if(!endpoint||!/^https:\/\//i.test(endpoint)||endpoint.includes('api.themoviedb.org')){
       alert('Informe uma URL HTTPS válida do seu proxy TMDB (Cloudflare Worker).');
       return;
     }
