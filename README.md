@@ -48,7 +48,7 @@ O app inclui um catálogo local de exemplos. Ele não reúne automaticamente tod
 
 ## Catálogo disponível no Brasil (TMDB)
 
-Com a fonte configurada, **Explorar títulos disponíveis no Brasil** consulta filmes e séries que o TMDB lista para o país, incluindo assinatura, gratuito, anúncios, aluguel e compra. Os resultados são paginados; os filtros separam filmes, séries, novelas, animes (incluindo longas de animação japonesa) e doramas. A classificação de anime, dorama e novela é estimada pelos gêneros e países de origem do TMDB e pode ter erros. A busca por texto também percorre páginas de resultados.
+Com a fonte configurada, **Explorar filmes disponíveis no Brasil** consulta títulos que o TMDB lista no Brasil para assinatura, gratuito, anúncios, aluguel e compra. Os resultados podem ser percorridos por páginas; os filtros por tipo também podem exibir séries, novelas, animes (incluindo longas de animação japonesa) e doramas. A classificação de anime, dorama e novela é estimada pelos gêneros e países de origem do TMDB e pode ter erros. A busca por texto consulta o TMDB, mas não confirma disponibilidade brasileira para cada resultado. A fonte limita a descoberta a até 500 páginas por consulta.
 
 Para habilitar no GitHub Pages:
 
